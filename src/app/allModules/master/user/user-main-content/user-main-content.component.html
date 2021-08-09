@@ -14,6 +14,17 @@
     </mat-form-field>
 
     <mat-form-field class="pl-8" fxFlex="50">
+      <input matInput placeholder="Display Name" formControlName="displayName">
+      <mat-error
+        *ngIf="userMainFormGroup.get('displayName').touched &&  userMainFormGroup.get('displayName').hasError('required')">
+        Display Name required</mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start">
+
+    <mat-form-field class="pl-8" fxFlex="50">
       <input matInput placeholder="Email ID" formControlName="email">
       <mat-error *ngIf="userMainFormGroup.get('email').touched && userMainFormGroup.get('email').hasError('required')">
         Email is required
@@ -23,9 +34,6 @@
         Please enter a valid email address
       </mat-error>
     </mat-form-field>
-  </div>
-
-  <div fxLayout="row" fxLayoutAlign="start">
 
     <mat-form-field class="pl-8" fxFlex="50">
       <input matInput placeholder="Mobile Number" pattern="^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$"
@@ -40,6 +48,9 @@
       </mat-error>
     </mat-form-field>
 
+  </div>
+  
+  <div fxLayout="row" fxLayoutAlign="start">
     <mat-form-field class="pl-8" fxFlex="50">
       <mat-select placeholder="Role Name" formControlName="roleID">
         <mat-option *ngFor="let rol of AllRoles" [value]="rol.RoleID">{{rol.RoleName}}</mat-option>
@@ -48,9 +59,7 @@
         *ngIf="userMainFormGroup.get('roleID').touched && userMainFormGroup.get('roleID').hasError('required')">Role
         Name required</mat-error>
     </mat-form-field>
-
   </div>
-
   <div fxLayout="row" fxLayoutAlign="start" fxFlex="1 0 auto">
 
     <!-- <div class="pl-8" fxFlex="50">
