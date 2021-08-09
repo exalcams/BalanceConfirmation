@@ -121,7 +121,8 @@ export class LoginComponent implements OnInit {
     // } else {
     //   this._router.navigate(['pages/dashboard']);
     // }
-    this._router.navigate(['pages/dashboard']);
+    // this._router.navigate(['pages/dashboard']);
+    this._router.navigate(['pages/overview']);
   }
 
   OpenChangePasswordDialog(data: AuthenticationDetails): void {

@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
     HttpClient,
     HttpHeaders,
     HttpErrorResponse,
-} from "@angular/common/http";
-import { Observable, throwError, Subject } from "rxjs";
-import { _MatChipListMixinBase } from "@angular/material";
-import { AuthService } from "./auth.service";
-import { catchError } from "rxjs/operators";
+} from '@angular/common/http';
+import { Observable, throwError, Subject } from 'rxjs';
+import { _MatChipListMixinBase } from '@angular/material';
+import { AuthService } from './auth.service';
+import { catchError } from 'rxjs/operators';
 import {
     MenuApp,
     RoleWithApp,
@@ -24,13 +24,15 @@ import {
     UserPreference,
     Plant,
     UserWithRP,
-} from "app/models/master";
+    UserFilter,
+    Role,
+} from 'app/models/master';
 
-import { Guid } from "guid-typescript";
+import { Guid } from 'guid-typescript';
 
 
 @Injectable({
-    providedIn: "root",
+    providedIn: 'root',
 })
 export class MasterService {
     baseAddress: string;
@@ -54,7 +56,7 @@ export class MasterService {
 
     // Error Handler
     errorHandler(error: HttpErrorResponse): Observable<string> {
-        return throwError(error.error || error.message || "Server Error");
+        return throwError(error.error || error.message || 'Server Error');
     }
 
     // App
@@ -65,7 +67,7 @@ export class MasterService {
                 menuApp,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -79,7 +81,7 @@ export class MasterService {
             )
             .pipe(catchError(this.errorHandler));
     }
-    GetRFQRoleWithUsers(role:string): Observable<any> {
+    GetRFQRoleWithUsers(role: string): Observable<any> {
         return this._httpClient
             .get<string[]>(
                 `${this.baseAddress}api/Master/GetRFQRoleWithUsers?RoleName=${role}`
@@ -94,7 +96,7 @@ export class MasterService {
                 menuApp,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -108,7 +110,7 @@ export class MasterService {
                 menuApp,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -123,7 +125,7 @@ export class MasterService {
                 appUsage,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -186,7 +188,7 @@ export class MasterService {
                 reason,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -208,7 +210,7 @@ export class MasterService {
                 reason,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -222,7 +224,7 @@ export class MasterService {
                 reason,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -237,7 +239,7 @@ export class MasterService {
                 role,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -248,6 +250,13 @@ export class MasterService {
         return this._httpClient
             .get<RoleWithApp[]>(
                 `${this.baseAddress}api/Master/GetAllRoles`
+            )
+            .pipe(catchError(this.errorHandler));
+    }
+    GetVCRoles(): Observable<Role[] | string> {
+        return this._httpClient
+            .get<Role[]>(
+                `${this.baseAddress}api/Master/GetVCRoles`
             )
             .pipe(catchError(this.errorHandler));
     }
@@ -266,7 +275,7 @@ export class MasterService {
                 role,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -280,7 +289,7 @@ export class MasterService {
                 role,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -291,8 +300,8 @@ export class MasterService {
 
     CreateUser1(user: UserWithRole, file: File): Observable<any> {
         const formData: FormData = new FormData();
-        formData.append("uploadFile", file, file.name);
-        formData.append("userName", user.UserName);
+        formData.append('uploadFile', file, file.name);
+        formData.append('userName', user.UserName);
 
         return this._httpClient
             .post<any>(
@@ -341,6 +350,13 @@ export class MasterService {
             )
             .pipe(catchError(this.errorHandler));
     }
+    FilterUsers(filter: UserFilter): Observable<UserWithRole[] | string> {
+        return this._httpClient
+            .post<UserWithRole[]>(
+                `${this.baseAddress}api/Master/FilterUsers`, filter
+            )
+            .pipe(catchError(this.errorHandler));
+    }
 
     GetAllDevelopers(): Observable<UserView[] | string> {
         return this._httpClient
@@ -379,7 +395,7 @@ export class MasterService {
                 user,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -405,7 +421,7 @@ export class MasterService {
                 SelectedNotification,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -428,7 +444,7 @@ export class MasterService {
             role,
             {
                 headers: new HttpHeaders({
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 }),
             }
         );
@@ -451,7 +467,7 @@ export class MasterService {
                 role,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -592,7 +608,7 @@ export class MasterService {
                 sessionMaster,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -606,7 +622,7 @@ export class MasterService {
                 sessionMaster,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )
@@ -620,7 +636,7 @@ export class MasterService {
                 sessionMaster,
                 {
                     headers: new HttpHeaders({
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     }),
                 }
             )

@@ -1,13 +1,15 @@
-import { Guid } from "guid-typescript";
+import { Guid } from 'guid-typescript';
 
 export class UserWithRole {
     UserID: Guid;
     RoleID: Guid;
     UserName: string;
+    RoleName: string;
     Plant: string;
     Email: string;
     Password: string;
     ContactNumber: string;
+    IsEnabled: boolean;
     IsActive: boolean;
     CreatedOn: Date;
     CreatedBy: string;
@@ -18,8 +20,8 @@ export class UserWithRole {
 export class UserWithRP {
     UserID: Guid;
     RoleID: Guid;
-    Plants:string[];
-    Permission:string;
+    Plants: string[];
+    Permission: string;
     UserName: string;
     Email: string;
     Password: string;
@@ -47,6 +49,15 @@ export class UserView {
     UserID: Guid;
     UserName: string;
 }
+export class Role {
+    RoleID: number;
+    RoleName: string;
+    IsActive: boolean;
+    CreatedOn: Date;
+    CreatedBy: string;
+    ModifiedOn?: Date;
+    ModifiedBy: string;
+}
 export class RoleWithApp {
     RoleID: Guid;
     RoleName: string;
@@ -66,15 +77,15 @@ export class MenuApp {
     ModifiedOn?: Date;
     ModifiedBy: string;
 }
-export class Plant{
-    PlantID:string;
-    PlantText:string;
-    AddressLine1:string;
-    AddressLine2:string;
-    City:string;
-    State:string;
-    Country:string;
-    PinCode:string;
+export class Plant {
+    PlantID: string;
+    PlantText: string;
+    AddressLine1: string;
+    AddressLine2: string;
+    City: string;
+    State: string;
+    Country: string;
+    PinCode: string;
     IsActive: boolean;
     CreatedOn: Date | string;
     CreatedBy: string;
@@ -132,8 +143,8 @@ export class AuthenticationDetails {
     Issued: string;
     Expiresin: string;
     TourStatus: boolean;
-    Plants:string[];
-    Permission:string;
+    Plants: string[];
+    Permission: string;
 }
 export class ChangePassword {
     UserID: Guid;
@@ -165,11 +176,11 @@ export class UserNotification {
     ModifiedOn?: Date;
 }
 export class VendorUser {
-    UserName:string;
+    UserName: string;
     Email: string;
     Phone: string;
-    DisplayName:string;
-    IsBlocked:boolean;
+    DisplayName: string;
+    IsBlocked: boolean;
 }
 export class SessionMaster {
     ID: number;
@@ -193,4 +204,8 @@ export class LoginHistoryFilter {
     FromDate: string;
     ToDate: string;
     UserName: string;
+}
+export class UserFilter {
+    RoleID: number | null;
+    IsEnabled: boolean | null;
 }
