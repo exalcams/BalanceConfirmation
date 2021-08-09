@@ -42,6 +42,7 @@ export class UserMainContentComponent implements OnInit, OnChanges {
     private _authService: AuthService) {
     this.userMainFormGroup = this._formBuilder.group({
       userName: ['', Validators.required],
+      displayName:['',Validators.required],
       roleID: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       contactNumber: ['', [Validators.required, Validators.pattern]],
@@ -104,6 +105,7 @@ export class UserMainContentComponent implements OnInit, OnChanges {
             if (result) {
               this.ShowProgressBarEvent.emit('show');
               this.user.UserName = this.userMainFormGroup.get('userName').value;
+              this.user.DisplayName = this.userMainFormGroup.get('displayName').value;
               this.user.RoleID = <Guid>this.userMainFormGroup.get('roleID').value;
               this.user.Email = this.userMainFormGroup.get('email').value;
               this.user.ContactNumber = this.userMainFormGroup.get('contactNumber').value;
@@ -142,6 +144,7 @@ export class UserMainContentComponent implements OnInit, OnChanges {
               this.ShowProgressBarEvent.emit('show');
               this.user = new UserWithRole();
               this.user.UserName = this.userMainFormGroup.get('userName').value;
+              this.user.DisplayName = this.userMainFormGroup.get('displayName').value;
               this.user.RoleID = this.userMainFormGroup.get('roleID').value;
               this.user.Email = this.userMainFormGroup.get('email').value;
               this.user.ContactNumber = this.userMainFormGroup.get('contactNumber').value;
@@ -189,6 +192,7 @@ export class UserMainContentComponent implements OnInit, OnChanges {
             if (result) {
               this.ShowProgressBarEvent.emit('show');
               this.user.UserName = this.userMainFormGroup.get('userName').value;
+              this.user.DisplayName = this.userMainFormGroup.get('displayName').value;
               this.user.RoleID = <Guid>this.userMainFormGroup.get('roleID').value;
               this.user.Email = this.userMainFormGroup.get('email').value;
               this.user.ContactNumber = this.userMainFormGroup.get('contactNumber').value;
@@ -225,6 +229,7 @@ export class UserMainContentComponent implements OnInit, OnChanges {
       this.user = new UserWithRole();
       this.user.UserID = this.currentSelectedUser.UserID;
       this.user.UserName = this.currentSelectedUser.UserName;
+      this.user.DisplayName=this.currentSelectedUser.DisplayName;
       this.user.RoleID = this.currentSelectedUser.RoleID;
       this.user.Email = this.currentSelectedUser.Email;
       this.user.ContactNumber = this.currentSelectedUser.ContactNumber;
@@ -234,6 +239,7 @@ export class UserMainContentComponent implements OnInit, OnChanges {
       this.user.ModifiedBy = this.currentSelectedUser.ModifiedBy;
       this.user.ModifiedOn = this.currentSelectedUser.ModifiedOn;
       this.userMainFormGroup.get('userName').patchValue(this.user.UserName);
+      this.userMainFormGroup.get('displayName').patchValue(this.user.DisplayName);
       this.userMainFormGroup.get('roleID').patchValue(this.user.RoleID);
       this.userMainFormGroup.get('email').patchValue(this.user.Email);
       this.userMainFormGroup.get('contactNumber').patchValue(this.user.ContactNumber);

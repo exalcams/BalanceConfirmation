@@ -52,15 +52,22 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OverviewComponent } from './overview/overview.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { RejectionDialogComponent } from './rejection-dialog/rejection-dialog.component';
+import { ReportComponent } from './report/report.component';
 
 const routes = [
     {
         path: 'dashboard',
-        component: DashboardComponent
+        component: OverviewComponent
     },
     {
-        path: 'overview',
-        component: OverviewComponent
+        path: 'confirmation',
+        component: ConfirmationComponent
+    },
+    {
+        path: 'report',
+        component: ReportComponent
     },
     {
         path: '**',
@@ -121,9 +128,10 @@ const routes = [
 
         FormsModule,
     ],
-    declarations: [DashboardComponent, OverviewComponent],
+    declarations: [DashboardComponent,ConfirmationComponent,ReportComponent,RejectionDialogComponent,OverviewComponent],
     providers: [],
     entryComponents: [
+        RejectionDialogComponent
     ]
 })
 export class PagesModule { }

@@ -116,13 +116,12 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('authorizationData', JSON.stringify(data));
     this.UpdateMenu();
     this.notificationSnackBarComponent.openSnackBar('Logged in successfully', SnackBarStatus.success);
-    // if (data.userRole === 'Administrator') {
-    //   this._router.navigate(['pages/adminDashboard']);
-    // } else {
-    //   this._router.navigate(['pages/dashboard']);
-    // }
+    if (data.UserRole === 'Administrator') {
+      this._router.navigate(['pages/dashboard']);
+    } else {
+      this._router.navigate(['pages/confirmation']);
+    }
     // this._router.navigate(['pages/dashboard']);
-    this._router.navigate(['pages/overview']);
   }
 
   OpenChangePasswordDialog(data: AuthenticationDetails): void {
@@ -195,11 +194,35 @@ export class LoginComponent implements OnInit {
       this.children.push(
         {
           id: 'dashboard',
-          title: 'Dashboard',
+          title: 'Overview',
           translate: 'NAV.SAMPLE.TITLE',
           type: 'item',
           icon: 'dashboard',
           url: '/pages/dashboard',
+        }
+      );
+    }
+    if (this.MenuItems.indexOf('Confirmation') >= 0) {
+      this.children.push(
+        {
+          id: 'confirmation',
+          title: 'Confirmation',
+          translate: 'NAV.SAMPLE.TITLE',
+          type: 'item',
+          icon: 'assignment_turned_in',
+          url: '/pages/confirmation',
+        }
+      );
+    }
+    if (this.MenuItems.indexOf('Report') >= 0) {
+      this.children.push(
+        {
+          id: 'report',
+          title: 'Report',
+          translate: 'NAV.SAMPLE.TITLE',
+          type: 'item',
+          icon: 'assignment',
+          url: '/pages/report',
         }
       );
     }
