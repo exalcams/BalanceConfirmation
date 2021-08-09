@@ -1,0 +1,150 @@
+<div id="overview" class="page-layout carded" fusePerfectScrollbar>
+    <div class="center" fxLayout="column" fxLayoutGap="10px">
+        <div class="outer" fxLayout>
+            <div class="bg"></div>
+            <div>
+                <h3 style="margin: 0px;padding-left: 10px;"><b>Overview</b></h3>
+            </div>
+            <div fxFlex align="end">
+                <span><img src="assets/images/logo.svg" style="height: 40px;padding: 4px 15px 2px 0px;"></span>
+            </div>
+        </div>
+
+        <div fxFlex fxLayout *ngIf="!isExpanded" @expandCollapse>
+            <div class="tile mx-20" fxFlex="40" fxLayout="column" fxLayoutAlign="start">
+                
+            </div>
+            <div class="tile mx-20" fxFlex="35" fxLayout="column" fxLayoutAlign="start">
+              
+            </div>
+            <div class="ml-40 mr-20" fxFlex="25">
+                <form autocomplete="off" name="form" novalidate [formGroup]="searchFormGroup">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <!-- <mat-icon class="mr-12" matPrefix>search</mat-icon> -->
+                            <mat-label>Role</mat-label>
+                            <!-- <input matInput formControlName="RoleID"> -->
+                            <mat-select formControlName="RoleID">
+                                <mat-option [value]="rol.RoleID" *ngFor="let rol of AllRoles">{{rol.RoleName}}
+                                </mat-option>
+                                <!-- <mat-option value="false">Disabled</mat-option> -->
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start center" class="mb-12">
+                        <div fxFlex class="hrLine mx-4"></div>
+                        <div class="smallRound"></div>
+                        <div fxFlex class="hrLine mx-4"></div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <!-- <mat-icon class="mr-12" matPrefix>search</mat-icon> -->
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="IsEnabled">
+                                <mat-option value="true">Enabled</mat-option>
+                                <mat-option value="false">Disabled</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex align="end">
+                            <button mat-raised-button class="SaveBtn"
+                                [ngClass]="BGClassName?.layout?.navbar?.primaryBackground"
+                                (click)="searchButtonClicked()">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="px-20 pb-20">
+            <div fxLayout="row" class="mt-20" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex="50">
+                    <mat-icon class="mr-12" matPrefix>search</mat-icon>
+                    <mat-label>Search</mat-label>
+                    <input [(ngModel)]="searchText" matInput (keyup)="applyFilter($event)">
+                </mat-form-field>
+                <div fxFlex fxLayoutAlign="end center">
+                    <!-- <mat-form-field appearance="outline" style="min-width: 100px;">
+              <mat-select [(ngModel)]="selectValue">
+                <mat-option value="All">All</mat-option>
+                <mat-option value="All">Material</mat-option>
+                <mat-option value="All">PO</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+                    <button (click)="exportAsXLSX()" class="excelBtn mx-24" mat-stroked-button>
+                        <img class="excelImg" src="assets/images/excel.png">
+                    </button>
+                    <img class="expandImg" src="assets/images/expand.png" (click)="expandClicked()">
+                </div>
+            </div>
+
+            <table class="table" mat-table [dataSource]="overviewDataSource" matSort>
+
+                <ng-container matColumnDef="UserName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        User Name </th>
+                    <td mat-cell *matCellDef="let element;let odd=odd" class="tableLeftBorder pl-0">
+                        <div fxLayout>
+                            <div class="tableCellBorder" [style.background-color]="odd?'#6f52ed':'#d87e39'"></div>
+                            <div fxFlex class="pl-8">{{element.UserName}} </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="RoleName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Role Name </th>
+                    <td mat-cell *matCellDef="let element;">
+                        {{element.RoleName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="DisplayName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Display Name </th>
+                    <td mat-cell *matCellDef="let element;">
+                        {{element.DisplayName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Email </th>
+                    <td mat-cell *matCellDef="let element;">
+                        {{element.Email}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ContactNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Contact Number </th>
+                    <td mat-cell *matCellDef="let element;">
+                        {{element.ContactNumber}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="IsEnabled">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Enabled</th>
+                    <td mat-cell *matCellDef="let element;let i= index;">
+                        {{element.IsEnabled}}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="overviewDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: overviewDisplayedColumns;">
+                </tr>
+            </table>
+            <div>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+            </div>
+        </div>
+
+        <mat-progress-spinner *ngIf="isProgressBarVisibile" class="progressBarPostion" color="accent"
+            mode="indeterminate">
+        </mat-progress-spinner>
+        <div id="overlay" *ngIf="isProgressBarVisibile"></div>
+    </div>
+</div>
