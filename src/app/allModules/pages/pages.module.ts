@@ -47,6 +47,7 @@ import {
     FuseMaterialColorPickerModule,
     FuseWidgetModule
 } from '@fuse/components';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FormsModule } from '@angular/forms';
@@ -118,6 +119,7 @@ const routes = [
         MatTreeModule,
 
         NgxChartsModule,
+        NgxDropzoneModule,
 
         FuseSharedModule,
 
@@ -126,7 +128,7 @@ const routes = [
         FuseMaterialColorPickerModule,
         FuseWidgetModule,
 
-        FormsModule,
+        FormsModule
     ],
     declarations: [DashboardComponent,ConfirmationComponent,ReportComponent,RejectionDialogComponent,OverviewComponent],
     providers: [],

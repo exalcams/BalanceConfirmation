@@ -16,6 +16,20 @@
         Remarks is required
       </mat-error>
     </mat-form-field>
+    <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="1rem">
+      <div fxLayout="row" style="width: 100%;">
+        <span class="attachment1">Attachements</span>
+        <div fxFlex></div>
+        <mat-icon (click)="drop.showFileSelector()" style="cursor: pointer;">add</mat-icon>
+      </div>
+      <ngx-dropzone #drop (change)="onSelect($event)" [disableClick]="true" class="dropzone">
+        <ngx-dropzone-label><span class="label">Drop here to upload or <a class="fileselect"
+              (click)="drop.showFileSelector()">choose file</a></span></ngx-dropzone-label>
+        <ngx-dropzone-preview class="preview" *ngFor="let f of Attachments" [removable]="true" (removed)="onRemove(f)">
+          <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
+    </div>
   </div>
 
   <mat-dialog-actions class="m-0 p-16" fxLayoutAlign="space-between center">

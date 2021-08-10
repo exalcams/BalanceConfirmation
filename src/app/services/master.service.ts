@@ -26,6 +26,7 @@ import {
     UserWithRP,
     UserFilter,
     Role,
+    MailTemplate,
 } from 'app/models/master';
 
 import { Guid } from 'guid-typescript';
@@ -681,6 +682,57 @@ export class MasterService {
         return this._httpClient
             .get<UserLoginHistory[]>(
                 `${this.baseAddress}api/Master/FilterLoginHistory?UserName=${UserName}&FromDate=${FromDate}&ToDate=${ToDate}`
+            )
+            .pipe(catchError(this.errorHandler));
+    }
+
+    // Mail Template
+    CreateMailTemplate(mailTemplate: MailTemplate): Observable<any> {
+        return this._httpClient
+            .post<any>(
+                `${this.baseAddress}api/Master/CreateMailTemplate`,
+                mailTemplate,
+                {
+                    headers: new HttpHeaders({
+                        'Content-Type': 'application/json',
+                    }),
+                }
+            )
+            .pipe(catchError(this.errorHandler));
+    }
+
+    GetAllMailTemplates(): Observable<MailTemplate[] | string> {
+        return this._httpClient
+            .get<MailTemplate[]>(
+                `${this.baseAddress}api/Master/GetAllMailTemplates`
+            )
+            .pipe(catchError(this.errorHandler));
+    }
+
+    UpdateMailTemplate(mailTemplate: MailTemplate): Observable<any> {
+        return this._httpClient
+            .post<any>(
+                `${this.baseAddress}api/Master/UpdateMailTemplate`,
+                mailTemplate,
+                {
+                    headers: new HttpHeaders({
+                        'Content-Type': 'application/json',
+                    }),
+                }
+            )
+            .pipe(catchError(this.errorHandler));
+    }
+
+    DeleteMailTemplate(mailTemplate: MailTemplate): Observable<any> {
+        return this._httpClient
+            .post<any>(
+                `${this.baseAddress}api/Master/DeleteMailTemplate`,
+                mailTemplate,
+                {
+                    headers: new HttpHeaders({
+                        'Content-Type': 'application/json',
+                    }),
+                }
             )
             .pipe(catchError(this.errorHandler));
     }

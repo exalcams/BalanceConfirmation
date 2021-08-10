@@ -211,10 +211,17 @@
     }
 
     .RejectBtn {
-        background-color: #d6201d;
         padding: 0px 40px;
         color: white;
         margin-top: 2rem;
+    }
+
+    .RejectBtn.mat-raised-button{
+        background-color: #d6201d;
+    }
+
+    .RejectBtn.mat-raised-button[disabled][disabled]{
+        background-color: rgba(0, 0, 0, 0.12);
     }
     
     .excelBtn {

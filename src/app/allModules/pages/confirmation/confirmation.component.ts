@@ -4,8 +4,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatMenuTrigger, MatTableDataSource, MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { FuseConfigService } from '@fuse/services/config.service';
-import { BalanceConfirmationHeader, BalanceConfirmationItem, ConfirmationDetails, RejectionDetails } from 'app/models/BalanceConfirmation';
+import { BalanceConfirmationHeader, BalanceConfirmationItem, BCAttachment, ConfirmationDetails, RejectionDetails } from 'app/models/BalanceConfirmation';
 import { AuthenticationDetails } from 'app/models/master';
+import { GreetingDialogComponent } from 'app/notifications/greeting-dialog/greeting-dialog.component';
 import { NotificationDialogComponent } from 'app/notifications/notification-dialog/notification-dialog.component';
 import { NotificationSnackBarComponent } from 'app/notifications/notification-snack-bar/notification-snack-bar.component';
 import { SnackBarStatus } from 'app/notifications/snackbar-status-enum';
@@ -19,7 +20,7 @@ import { RejectionDialogComponent } from '../rejection-dialog/rejection-dialog.c
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss'],
-  encapsulation:ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class ConfirmationComponent implements OnInit {
   authenticationDetails: AuthenticationDetails;
@@ -62,9 +63,6 @@ export class ConfirmationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isProgressBarVisibile = true;
-    // this.SetUserPreference();
-    // Retrive authorizationData
     const retrievedObject = localStorage.getItem('authorizationData');
     if (retrievedObject) {
       this.authenticationDetails = JSON.parse(retrievedObject) as AuthenticationDetails;
@@ -95,13 +93,20 @@ export class ConfirmationComponent implements OnInit {
   }
 
   GetHeader(): void {
-    this._bcService.GetCurrentBCHeader().subscribe((data: BalanceConfirmationHeader) => {
+    this.isProgressBarVisibile = true;
+    this._bcService.GetCurrentBCHeader(this.currentUserName).subscribe((data: BalanceConfirmationHeader) => {
       this.BCHeader = data;
-    });
+      this.isProgressBarVisibile = false;
+    },
+      err => {
+        console.log(err);
+        this.isProgressBarVisibile = false;
+      });
   }
 
   GetBCTableData(): void {
-    this._bcService.GetCurrentBCItemsByPeroid().subscribe((data: BalanceConfirmationItem[]) => {
+    this.isProgressBarVisibile = true;
+    this._bcService.GetCurrentBCItemsByPeroid(this.currentUserName).subscribe((data: BalanceConfirmationItem[]) => {
       this.BCItems = data;
       this.balanceConfirmationDataSource = new MatTableDataSource(this.BCItems);
       this.balanceConfirmationDataSource.paginator = this.balanceConfirmationPaginator;
@@ -151,6 +156,7 @@ export class ConfirmationComponent implements OnInit {
     // }
   }
   AcceptBalance(): void {
+    // this.OpenGreetingDialog();
     this.OpenConfirmationDialog('Accept', 'Balance');
     // if (this.BCHeader.Status !== 'Accepted') {
     //   this.OpenConfirmationDialog('Accept', 'Balance');
@@ -190,32 +196,62 @@ export class ConfirmationComponent implements OnInit {
   }
 
   AcceptBC(): void {
-    this.isProgressBarVisibile=true;
+    this.isProgressBarVisibile = true;
     this.confirmationDetails = new ConfirmationDetails();
     this.confirmationDetails.ConfirmedBy = this.currentUserName;
-    this.confirmationDetails.PartnerID=this.currentUserName;
+    this.confirmationDetails.PartnerID = this.currentUserName;
     this._bcService.AcceptBC(this.confirmationDetails).subscribe(x => {
-      this.isProgressBarVisibile=false;
+      this.isProgressBarVisibile = false;
       this.notificationSnackBarComponent.openSnackBar('Balance Confirmed', SnackBarStatus.success);
+      this.OpenGreetingDialog();
     }, err => {
-      this.isProgressBarVisibile=false;
+      this.isProgressBarVisibile = false;
       this.notificationSnackBarComponent.openSnackBar(err instanceof Object ? 'Something went wrong' : err, SnackBarStatus.danger);
     });
   }
 
-  RejectBC(remarks:string): void {
-    this.isProgressBarVisibile=true;
+  RejectBC(Res: any): void {
+    this.isProgressBarVisibile = true;
     var rejectionDetails = new RejectionDetails();
     rejectionDetails.RejectedBy = this.currentUserName;
     rejectionDetails.PartnerID = this.currentUserName;
-    rejectionDetails.Remarks = remarks;
+    rejectionDetails.Remarks = Res.Remarks;
+    var uploadAttachment = new BCAttachment();
+    uploadAttachment.Client = this.BCHeader.Client;
+    uploadAttachment.Company = this.BCHeader.Company;
+    uploadAttachment.Type = this.BCHeader.Type;
+    uploadAttachment.FiscalYear = this.BCHeader.FiscalYear;
+    uploadAttachment.PartnerID = this.BCHeader.PartnerID;
+    uploadAttachment.Attachments = Res.Attachments;
     this._bcService.RejectBC(rejectionDetails).subscribe(x => {
-      this.isProgressBarVisibile=false;
+      this._bcService.UploadBCAttachments(uploadAttachment).subscribe(res => {
+        this.isProgressBarVisibile = false;
+      },
+        err => {
+          this.isProgressBarVisibile = false;
+          this.notificationSnackBarComponent.openSnackBar(err instanceof Object ? 'attachment not uploaded' : err, SnackBarStatus.danger);
+        });
       this.notificationSnackBarComponent.openSnackBar('Balance Rejected', SnackBarStatus.success);
-    }, err => {
-      this.isProgressBarVisibile=false;
-      this.notificationSnackBarComponent.openSnackBar(err instanceof Object ? 'Something went wrong' : err, SnackBarStatus.danger);
-    });
+      this.OpenGreetingDialog();
+    },
+      err => {
+        this.isProgressBarVisibile = false;
+        this.notificationSnackBarComponent.openSnackBar(err instanceof Object ? 'Something went wrong' : err, SnackBarStatus.danger);
+      });
+  }
+
+  OpenGreetingDialog(): void {
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        Message: "Thank you for submitting your response 😊"
+      },
+      panelClass: 'greeting-dialog'
+    };
+    const dialogRef = this.dialog.open(GreetingDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this._router.navigate(['auth/login']);
+      });
   }
 
 }

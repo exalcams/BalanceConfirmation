@@ -1,0 +1,19 @@
+@import "src/@fuse/scss/fuse";
+.greeting-dialog {
+    .mat-dialog-container {
+      padding: 0 !important;
+      border-radius: 10px;
+    }
+    @include media-breakpoint("xs") {
+        width: 100%;
+      }
+    
+      @include media-breakpoint-up("sm") {
+        width: 560px;
+      }
+    .msgtxt{
+        font-size: 28px;
+        text-align: center;
+    }
+  }
+  

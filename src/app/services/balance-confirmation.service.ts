@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConfirmationDetails, RejectionDetails } from 'app/models/BalanceConfirmation';
+import { BCAttachment, ConfirmationDetails, RejectionDetails } from 'app/models/BalanceConfirmation';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
@@ -26,16 +26,16 @@ export class BalanceConfirmationService {
         return this.http.get(this.serviceUrl + "balanceconfirmation/getallbcitems")
             .pipe(catchError(this.errorHandler));
     }
-    GetCurrentBCHeader(): Observable<any> {
-        return this.http.get(this.serviceUrl + "balanceconfirmation/GetCurrentBCHeader")
+    GetCurrentBCHeader(partnerID:string): Observable<any> {
+        return this.http.get(this.serviceUrl + "balanceconfirmation/GetCurrentBCHeader?PartnerID="+partnerID)
             .pipe(catchError(this.errorHandler));
     }
     GetCurrentBCItems(): Observable<any> {
         return this.http.get(this.serviceUrl + "balanceconfirmation/GetCurrentBCItems")
             .pipe(catchError(this.errorHandler));
     }
-    GetCurrentBCItemsByPeroid(): Observable<any> {
-        return this.http.get(this.serviceUrl + "balanceconfirmation/GetCurrentBCItemsByPeroid")
+    GetCurrentBCItemsByPeroid(partnerID:string): Observable<any> {
+        return this.http.get(this.serviceUrl + "balanceconfirmation/GetCurrentBCItemsByPeroid?partnerID="+partnerID)
             .pipe(catchError(this.errorHandler));
     }
     AcceptBC(confirmationDetails: ConfirmationDetails): Observable<any> {
@@ -46,5 +46,20 @@ export class BalanceConfirmationService {
         return this.http.post(this.serviceUrl + "balanceconfirmation/RejectBC", rejectionDetails)
             .pipe(catchError(this.errorHandler));
     }
+    UploadBCAttachments(bcAttachment:BCAttachment): Observable<any> {
+        const formData: FormData = new FormData();
+        bcAttachment.Attachments.forEach(doc => {
+            formData.append(doc.name, doc, doc.name);
+        });
+        formData.append('Client', bcAttachment.Client);
+        formData.append('Company', bcAttachment.Company);
+        formData.append('Type', bcAttachment.Type);
+        formData.append('PartnerID', bcAttachment.PartnerID);
+        formData.append('FiscalYear', bcAttachment.FiscalYear);
+        formData.append('DocNumber', bcAttachment.DocNumber);
+        return this.http.post<any>(`${this.serviceUrl}balanceconfirmation/AddBCAttachment`,
+          formData
+        ).pipe(catchError(this.errorHandler));
+      }
 
 }

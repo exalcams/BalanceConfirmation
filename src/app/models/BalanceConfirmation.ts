@@ -51,6 +51,15 @@ export class RejectionDetails {
     RejectedBy: string;
     Remarks: string;
 }
+export class BCAttachment{
+    Client:string;
+    Company:string;
+    Type:string;
+    PartnerID:string;
+    FiscalYear:string;
+    DocNumber:string;
+    Attachments:File[];
+}
 // export class BPCPayAccountStatement extends CommonClass {
 //     Client: string;
 //     Company: string;

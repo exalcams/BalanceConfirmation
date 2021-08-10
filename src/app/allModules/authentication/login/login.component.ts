@@ -256,6 +256,16 @@ export class LoginComponent implements OnInit {
         }
       );
     }
+    if (this.MenuItems.indexOf('MailTemplate') >= 0) {
+      this.subChildren.push(
+        {
+          id: 'mailTemplate',
+          title: 'Mail Template',
+          type: 'item',
+          url: '/master/mailTemplate'
+        }
+      );
+    }
 
     if (this.MenuItems.indexOf('App') >= 0 || this.MenuItems.indexOf('Role') >= 0 || this.MenuItems.indexOf('User') >= 0) {
       this.children.push({
