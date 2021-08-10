@@ -27,6 +27,8 @@ import {
     UserFilter,
     Role,
     MailTemplate,
+    EnabledCount,
+    DisabledCount,
 } from 'app/models/master';
 
 import { Guid } from 'guid-typescript';
@@ -734,6 +736,65 @@ export class MasterService {
                     }),
                 }
             )
+            .pipe(catchError(this.errorHandler));
+    }
+    EnableAllUsers(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/EnableAllUsers`)
+            .pipe(catchError(this.errorHandler));
+    }
+    EnableAllVendors(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/EnableAllVendors`)
+            .pipe(catchError(this.errorHandler));
+    }
+    EnableAllCustomers(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/EnableAllCustomers`)
+            .pipe(catchError(this.errorHandler));
+    }
+    EnableSelectedUsers(UserIDs: number[]): Observable<any | string> {
+        return this._httpClient.post<any>(`${this.baseAddress}api/Master/EnableSelectedUsers`, UserIDs)
+            .pipe(catchError(this.errorHandler));
+    }
+
+    DisableAllUsers(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/DisableAllUsers`)
+            .pipe(catchError(this.errorHandler));
+    }
+    DisableAllVendors(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/DisableAllVendors`)
+            .pipe(catchError(this.errorHandler));
+    }
+    DisableAllCustomers(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/DisableAllCustomers`)
+            .pipe(catchError(this.errorHandler));
+    }
+    DisableSelectedUsers(UserIDs: number[]): Observable<any | string> {
+        return this._httpClient.post<any>(`${this.baseAddress}api/Master/DisableSelectedUsers`, UserIDs)
+            .pipe(catchError(this.errorHandler));
+    }
+
+    SendMailToAllUsers(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/SendMailToAllUsers`)
+            .pipe(catchError(this.errorHandler));
+    }
+    SendMailToAllVendors(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/SendMailToAllVendors`)
+            .pipe(catchError(this.errorHandler));
+    }
+    SendMailToAllCustomers(): Observable<any | string> {
+        return this._httpClient.get<any>(`${this.baseAddress}api/Master/SendMailToAllCustomers`)
+            .pipe(catchError(this.errorHandler));
+    }
+    SendMailToSelectedUsers(UserIDs: number[]): Observable<any | string> {
+        return this._httpClient.post<any>(`${this.baseAddress}api/Master/SendMailToSelectedUsers`, UserIDs)
+            .pipe(catchError(this.errorHandler));
+    }
+
+    GetEnabledCount(): Observable<EnabledCount | string> {
+        return this._httpClient.get<EnabledCount>(`${this.baseAddress}api/Master/GetEnabledCount`)
+            .pipe(catchError(this.errorHandler));
+    }
+    GetDisabledCount(): Observable<DisabledCount | string> {
+        return this._httpClient.get<DisabledCount>(`${this.baseAddress}api/Master/GetDisabledCount`)
             .pipe(catchError(this.errorHandler));
     }
 }

@@ -46,6 +46,10 @@
     .semiBoldClass {
         font-weight: 500;
     }
+    .cardValues {
+        @extend .boldClass;
+        font-size: large;
+    }
     .subTitle {
         @extend .semiBoldClass;
         font-size: 12px;
@@ -137,9 +141,23 @@
     .redBorderBottom {
         border-bottom: 2px solid #f3705a;
     }
-    // .orangeBorderBottom {
-    //     border-bottom: 2px solid #ffd15c;
-    // }
+    .orangeBorderBottom {
+        // border-bottom: 2px solid #ffd15c;
+        width: 45%;
+        height: 2px;
+        margin: auto;
+        background-color: #ffd15c;
+    }
+    .divider {
+        border-bottom: 1px solid #cbcbcb;
+    }
+    .leftDivider {
+        // margin-left: 5px;
+        // margin-right: 5px;
+        margin-top: 12px;
+        height: 100%;
+        border-left: 1px solid #cbcbcb;
+    }
     .underline1 {
         height: 2.5px;
         width: 108px;
@@ -269,11 +287,16 @@
         background-color: #f9d2a8;
     }
     .tableCellBorder {
-        height: 20px;
+        height: 25px;
+        margin-right: 4px;
         vertical-align: middle;
         width: 10px;
         background-color: #d87e39;
         opacity: 0.7;
+    }
+    .hcheck {
+        margin-left: 4px;
+        background-color: white;
     }
     .next {
         background-color: #e8ffeb;
@@ -316,7 +339,7 @@
     }
     .SaveBtn {
         background-color: #efb577;
-        padding: 0px 40px;
+        padding: 0px 16px;
         color: white;
     }
     .hrLine {
@@ -331,11 +354,11 @@
     }
     .expandImg {
         height: 36px;
-        margin-top: -16px;
+        // margin-top: -16px;
         cursor: pointer;
     }
     .excelBtn {
-        margin-top: -16px;
+        // margin-top: -16px;
         min-width: 0px;
         background-color: white;
         color: rgb(46, 125, 50);
@@ -396,5 +419,11 @@
         letter-spacing: 0.2px;
         font-weight: 500;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .flexcontainer {
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+        align-items: center;
     }
 }

@@ -15,7 +15,7 @@ import { UserWithRole } from 'app/models/master';
 export class UserSideBarComponent implements OnInit, OnChanges {
 
   searchText: string;
-  selectID: Guid;
+  selectID: number;
   @Input() AllUsers: UserWithRole[] = [];
   @Output() UserSelectionChanged: EventEmitter<UserWithRole> = new EventEmitter<UserWithRole>();
   notificationSnackBarComponent: NotificationSnackBarComponent;

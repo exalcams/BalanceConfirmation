@@ -130,7 +130,7 @@ const routes = [
 
         FormsModule
     ],
-    declarations: [DashboardComponent,ConfirmationComponent,ReportComponent,RejectionDialogComponent,OverviewComponent],
+    declarations: [DashboardComponent, ConfirmationComponent, ReportComponent, RejectionDialogComponent, OverviewComponent],
     providers: [],
     entryComponents: [
         RejectionDialogComponent
