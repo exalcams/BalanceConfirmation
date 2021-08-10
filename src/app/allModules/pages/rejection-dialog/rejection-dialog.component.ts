@@ -11,24 +11,34 @@ import { fuseAnimations } from '@fuse/animations';
   animations: fuseAnimations
 })
 export class RejectionDialogComponent implements OnInit {
-
+  Attachments:File[]=[];
   RejectionRemarks:FormControl=new FormControl('',Validators.required);
+
   constructor(
     public matDialogRef: MatDialogRef<RejectionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  ) {}
 
   ngOnInit() {
   }
 
   YesClicked(): void {
     if(this.RejectionRemarks.valid){
-      this.matDialogRef.close(this.RejectionRemarks.value);
+      this.matDialogRef.close({Remarks:this.RejectionRemarks.value,Attachments:this.Attachments});
     }
   }
 
   CloseClicked(): void {
     this.matDialogRef.close(null);
+  }
+
+  onSelect(event) {
+    event.addedFiles.forEach(doc => {
+      this.Attachments.push(doc);
+    });
+  }
+  onRemove(event) {
+    this.Attachments.splice(this.Attachments.indexOf(event), 1);
   }
 
 }

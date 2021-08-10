@@ -1,4 +1,5 @@
 import { Guid } from 'guid-typescript';
+import { CommonClass } from './common';
 
 export class UserWithRole {
     UserID: Guid;
@@ -57,6 +58,12 @@ export class Role {
     CreatedBy: string;
     ModifiedOn?: Date;
     ModifiedBy: string;
+}
+export class MailTemplate extends CommonClass{
+    TemplateID:number;
+    Type:string;
+    Subject:string;
+    Body:string;
 }
 export class RoleWithApp {
     RoleID: Guid;

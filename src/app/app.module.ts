@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 import { NotificationDialogComponent } from './notifications/notification-dialog/notification-dialog.component';
 import { WINDOW_PROVIDERS } from './window.providers';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { GreetingDialogComponent } from './notifications/greeting-dialog/greeting-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
         AppComponent,
         NotificationSnackBarComponent,
         NotificationDialogComponent,
+        GreetingDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -86,7 +88,8 @@ const appRoutes: Routes = [
         AppComponent
     ],
     entryComponents: [
-        NotificationDialogComponent
+        NotificationDialogComponent,
+        GreetingDialogComponent
     ]
 })
 export class AppModule {

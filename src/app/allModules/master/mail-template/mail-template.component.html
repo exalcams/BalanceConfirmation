@@ -1,0 +1,17 @@
+<div id="chat" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg accent"></div>
+  <div class="center">
+      <div class="content-card">
+          <mat-sidenav-container>
+              <mat-sidenav class="sidenav" position="start" opened="true" mode="side" fuseMatSidenavHelper="chat-left-sidenav"
+                  matIsLockedOpen="gt-md">
+                  <mail-template-side-bar [AllMailTemplates]="AllMailTemplates" (MailTemplateSelectionChanged)="OnMailTemplateSelectionChanged($event)">
+                  </mail-template-side-bar>
+              </mat-sidenav>
+              <mail-template-main-content [currentSelectedMailTemplate]="SelectedMailTemplate" (SaveSucceed)='RefreshAllMailTemplates($event)'
+                  (ShowProgressBarEvent)="OnShowProgressBarEvent($event)"></mail-template-main-content>
+          </mat-sidenav-container>
+          <mat-progress-spinner *ngIf="IsProgressBarVisibile" class="ProgressBarPostion" color="accent" mode="indeterminate"></mat-progress-spinner>
+      </div>
+  </div>
+</div>

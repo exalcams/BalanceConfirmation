@@ -173,7 +173,7 @@
     </div>
   </div>
   <div class="px-20 pb-20 footer" fxLayout="row" fxLayoutAlign="space-between center">
-    <button (click)="RejectBalance()" mat-raised-button class="RejectBtn">Reject</button>
+    <button [disabled]="isAccepted" (click)="RejectBalance()" mat-raised-button class="RejectBtn">Reject</button>
     <button [disabled]="!isAccepted" (click)="AcceptBalance()" mat-raised-button class="SaveBtn">Accept</button>
   </div>
 </div>

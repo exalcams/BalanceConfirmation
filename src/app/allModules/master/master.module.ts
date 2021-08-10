@@ -8,7 +8,6 @@ import {
 } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
-import { FuseProgressBarModule } from '@fuse/components';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MenuAppComponent } from './menu-app/menu-app.component';
 import { RoleComponent } from './role/role.component';
@@ -19,6 +18,10 @@ import { RoleSideBarComponent } from './role/role-side-bar/role-side-bar.compone
 import { RoleMainContentComponent } from './role/role-main-content/role-main-content.component';
 import { MenuAppSideBarComponent } from './menu-app/menu-app-side-bar/menu-app-side-bar.component';
 import { MenuAppMainContentComponent } from './menu-app/menu-app-main-content/menu-app-main-content.component';
+import { MailTemplateMainContentComponent } from './mail-template/mail-template-main-content/mail-template-main-content.component';
+import { MailTemplateSideBarComponent } from './mail-template/mail-template-side-bar/mail-template-side-bar.component';
+import { MailTemplateComponent } from './mail-template/mail-template.component';
+import { CKEditorModule } from 'ngx-ckeditor';
 
 const menuRoutes: Routes = [
     {
@@ -33,6 +36,10 @@ const menuRoutes: Routes = [
         path: 'user',
         component: UserComponent,
     },
+    {
+        path: 'mailTemplate',
+        component: MailTemplateComponent,
+    },
 ];
 @NgModule({
     declarations: [
@@ -45,6 +52,9 @@ const menuRoutes: Routes = [
        MenuAppComponent,
        MenuAppSideBarComponent,
        MenuAppMainContentComponent,
+       MailTemplateComponent,
+       MailTemplateSideBarComponent,
+       MailTemplateMainContentComponent
     ],
     imports: [
         MatButtonModule,
@@ -63,7 +73,8 @@ const menuRoutes: Routes = [
         MatTooltipModule,
         FuseSharedModule,
         FileUploadModule,
-        RouterModule.forChild(menuRoutes)
+        RouterModule.forChild(menuRoutes),
+        CKEditorModule
     ],
     providers: [
 

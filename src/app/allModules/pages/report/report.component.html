@@ -2,7 +2,7 @@
   <div class="center" fusePerfectScrollbar>
     <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
       <div fxFlex class="mb-0">
-        <div class="container m-12" fxLayout fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center"
+        <div class="container p-16" fxLayout fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center"
           fxLayoutGap="10px" fxLayoutGap.xs="10">
           <div fxFlex class="TileClass successBgColor" (click)="Tab1Clicked()">
             <div class="container" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
@@ -13,7 +13,7 @@
               </div>
               <div fxFlex="30%">
                 <h2 class="subTitleClass">
-                  0
+                  {{AllHeaders.length}}
                 </h2>
               </div>
             </div>
@@ -28,7 +28,7 @@
               </div>
               <div fxFlex="30%">
                 <h2 class="subTitleClass">
-                  0
+                  {{AcceptedHeaders.length}}
                 </h2>
               </div>
             </div>
@@ -43,7 +43,7 @@
               </div>
               <div fxFlex="30%">
                 <h2 class="subTitleClass">
-                  0
+                  {{RejectedHeaders.length}}
                 </h2>
               </div>
             </div>
@@ -57,14 +57,14 @@
               </div>
               <div fxFlex="30%">
                 <h2 class="subTitleClass">
-                  0
+                  {{NotRespondedHeaders.length}}
                 </h2>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="px-20 pb-20">
+      <div class="px-16">
         <div class="table-wrapper">
           <table class="table" mat-table [dataSource]="balanceConfirmationDataSource" matSort style="margin-top: 10px;">
   
