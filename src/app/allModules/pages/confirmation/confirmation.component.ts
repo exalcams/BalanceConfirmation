@@ -24,13 +24,13 @@ import { RejectionDialogComponent } from '../rejection-dialog/rejection-dialog.c
 })
 export class ConfirmationComponent implements OnInit {
   authenticationDetails: AuthenticationDetails;
-  currentUserID: Guid;
+  currentUserID: number;
   currentUserName: string;
   currentUserRole: string;
   MenuItems: string[];
   confirmationDetails: ConfirmationDetails;
   isProgressBarVisibile: boolean;
-  isAccepted: boolean = false;
+  isAccepted = false;
   notificationSnackBarComponent: NotificationSnackBarComponent;
   fuseConfig: any;
   @ViewChild(MatPaginator) balanceConfirmationPaginator: MatPaginator;
@@ -40,8 +40,8 @@ export class ConfirmationComponent implements OnInit {
   BCHeader: BalanceConfirmationHeader;
   BCItems: BalanceConfirmationItem[];
   balanceConfirmationDataSource: MatTableDataSource<BalanceConfirmationItem>;
-  balanceConfirmationDisplayedColumns = ["FiscalYear", "DocNumber", "DocDate", "InvoiceNumber", "InvoiceAmount", "BillAmount", "PaidAmont",
-    "TDSAmount", "TotalPaidAmount", "DownPayment", "NetDueAmount", "Currency", "BalDate"];
+  balanceConfirmationDisplayedColumns = ['FiscalYear', 'DocNumber', 'DocDate', 'InvoiceNumber', 'InvoiceAmount', 'BillAmount', 'PaidAmont',
+    'TDSAmount', 'TotalPaidAmount', 'DownPayment', 'NetDueAmount', 'Currency', 'BalDate'];
   // SecretKey: string;
   // SecureStorage: SecureLS;
   constructor(
@@ -211,12 +211,13 @@ export class ConfirmationComponent implements OnInit {
   }
 
   RejectBC(Res: any): void {
+    // RejectBC(remarks: string): void {
     this.isProgressBarVisibile = true;
-    var rejectionDetails = new RejectionDetails();
+    const rejectionDetails = new RejectionDetails();
     rejectionDetails.RejectedBy = this.currentUserName;
     rejectionDetails.PartnerID = this.currentUserName;
     rejectionDetails.Remarks = Res.Remarks;
-    var uploadAttachment = new BCAttachment();
+    const uploadAttachment = new BCAttachment();
     uploadAttachment.Client = this.BCHeader.Client;
     uploadAttachment.Company = this.BCHeader.Company;
     uploadAttachment.Type = this.BCHeader.Type;
@@ -243,7 +244,7 @@ export class ConfirmationComponent implements OnInit {
   OpenGreetingDialog(): void {
     const dialogConfig: MatDialogConfig = {
       data: {
-        Message: "Thank you for submitting your response 😊"
+        Message: 'Thank you for submitting your response 😊'
       },
       panelClass: 'greeting-dialog'
     };
@@ -252,6 +253,12 @@ export class ConfirmationComponent implements OnInit {
       result => {
         this._router.navigate(['auth/login']);
       });
+    //     this.isProgressBarVisibile = false;
+    //     this.notificationSnackBarComponent.openSnackBar('Balance Rejected', SnackBarStatus.success);
+    //   }, err => {
+    //   this.isProgressBarVisibile = false;
+    //   this.notificationSnackBarComponent.openSnackBar(err instanceof Object ? 'Something went wrong' : err, SnackBarStatus.danger);
+    // });
   }
 
 }

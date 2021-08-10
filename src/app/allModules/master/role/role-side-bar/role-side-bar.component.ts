@@ -15,7 +15,7 @@ import { RoleWithApp } from 'app/models/master';
 export class RoleSideBarComponent implements OnInit, OnChanges {
 
   searchText: string;
-  selectID: Guid;
+  selectID: number;
   @Input() AllRoles: RoleWithApp[] = [];
   @Output() RoleSelectionChanged: EventEmitter<RoleWithApp> = new EventEmitter<RoleWithApp>();
   notificationSnackBarComponent: NotificationSnackBarComponent;

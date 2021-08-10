@@ -2,8 +2,8 @@ import { Guid } from 'guid-typescript';
 import { CommonClass } from './common';
 
 export class UserWithRole {
-    UserID: Guid;
-    RoleID: Guid;
+    UserID: number;
+    RoleID: number;
     UserName: string;
     RoleName: string;
     Plant: string;
@@ -19,8 +19,8 @@ export class UserWithRole {
     DisplayName: string;
 }
 export class UserWithRP {
-    UserID: Guid;
-    RoleID: Guid;
+    UserID: number;
+    RoleID: number;
     Plants: string[];
     Permission: string;
     UserName: string;
@@ -36,7 +36,7 @@ export class UserWithRP {
 }
 export class UserPreference {
     ID: number;
-    UserID: Guid;
+    UserID: number;
     NavbarPrimaryBackground: string;
     NavbarSecondaryBackground: string;
     ToolbarBackground: string;
@@ -47,7 +47,7 @@ export class UserPreference {
     ModifiedBy: string;
 }
 export class UserView {
-    UserID: Guid;
+    UserID: number;
     UserName: string;
 }
 export class Role {
@@ -59,14 +59,14 @@ export class Role {
     ModifiedOn?: Date;
     ModifiedBy: string;
 }
-export class MailTemplate extends CommonClass{
-    TemplateID:number;
-    Type:string;
-    Subject:string;
-    Body:string;
+export class MailTemplate extends CommonClass {
+    TemplateID: number;
+    Type: string;
+    Subject: string;
+    Body: string;
 }
 export class RoleWithApp {
-    RoleID: Guid;
+    RoleID: number;
     RoleName: string;
     AppIDList: number[];
     IsActive: boolean;
@@ -101,7 +101,7 @@ export class Plant {
 }
 export class AppUsage {
     ID: number;
-    UserID: Guid;
+    UserID: number;
     // AppID: number;
     AppName: string;
     UsageCount: number;
@@ -114,7 +114,7 @@ export class AppUsage {
 }
 export class AppUsageView {
     ID: number;
-    UserID: Guid;
+    UserID: number;
     UserName: string;
     UserRole: string;
     AppName: string;
@@ -137,7 +137,7 @@ export class Reason {
 }
 export class AuthenticationDetails {
     IsAuth: boolean;
-    UserID: Guid;
+    UserID: number;
     UserName: string;
     DisplayName: string;
     EmailAddress: string;
@@ -154,7 +154,7 @@ export class AuthenticationDetails {
     Permission: string;
 }
 export class ChangePassword {
-    UserID: Guid;
+    UserID: number;
     UserName: string;
     CurrentPassword: string;
     NewPassword: string;
@@ -169,7 +169,7 @@ export class EMailModel {
     siteURL: string;
 }
 export class ForgotPassword {
-    UserID: Guid;
+    UserID: number;
     EmailAddress: string;
     NewPassword: string;
     Token: string;
@@ -215,4 +215,15 @@ export class LoginHistoryFilter {
 export class UserFilter {
     RoleID: number | null;
     IsEnabled: boolean | null;
+}
+export class EnabledCount {
+    TotalEnabledUsers: number;
+    EnabledVendors: number;
+    EnabledCustomers: number;
+}
+
+export class DisabledCount {
+    TotalDisabledUsers: number;
+    DisabledVendors: number;
+    DisabledCustomers: number;
 }
