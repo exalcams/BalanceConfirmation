@@ -74,7 +74,7 @@ export class ReportComponent implements OnInit {
 
   LoadTable(tab: number) {
     if (tab == 1) {
-      this.balanceConfirmationDisplayedColumns = this.AllColumns;
+      this.balanceConfirmationDisplayedColumns = this.NotRespodedColumns;
       this.balanceConfirmationDataSource=new MatTableDataSource(this.AllHeaders);
     }
     else if (tab == 2) {
