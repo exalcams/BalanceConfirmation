@@ -1,0 +1,28 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+      <p class="title">Attachments</p>
+      <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+  </mat-toolbar>
+
+  <mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+    <div fxLayout fxLayoutAlign="start">
+      <div fxFlex *ngIf="Attachments?.length === 0" class="no-results-message">
+        <span class="pl-12 pt-4"> No attachments..</span>
+      </div>
+      <div *ngIf="Attachments?.length">
+        <ul *ngFor="let attachment of Attachments">
+          <li style="cursor: pointer; color: #039be5;" (click)="OpenAttachment(attachment)">
+            {{attachment.AttachmentName}}</li>
+        </ul>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="m-0 p-16 dialog-footer" fxLayoutAlign="end center">
+    <button mat-button type="button" (click)="matDialogRef.close()" class="savebtn">Close</button>
+  </mat-dialog-actions>
+  <mat-progress-spinner *ngIf="isProgressBarVisibile" class="progressBarPostion" color="accent" mode="indeterminate">
+  </mat-progress-spinner>
+  <div id="overlay" *ngIf="isProgressBarVisibile"></div>
+</div>

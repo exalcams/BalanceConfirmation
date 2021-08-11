@@ -59,3 +59,9 @@
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 200;
 }
+.progressBarPostion {
+  position: absolute !important;
+  top:40%;
+  z-index: 1;
+  left: 47%;
+}

@@ -60,6 +60,17 @@ export class BCAttachment{
     DocNumber:string;
     Attachments:File[];
 }
+export class BCFilter{
+    Client:string;
+    Company:string;
+    Type:string;
+    PartnerID:string;
+    FiscalYear:string;
+}
+export class BCAttachments{
+    AttachmentID:number;
+    AttachmentName:string;
+}
 // export class BPCPayAccountStatement extends CommonClass {
 //     Client: string;
 //     Company: string;
