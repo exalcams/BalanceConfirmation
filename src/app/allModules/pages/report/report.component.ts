@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatPaginator, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatPaginator, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { BalanceConfirmationHeader } from 'app/models/BalanceConfirmation';
 import { NotificationSnackBarComponent } from 'app/notifications/notification-snack-bar/notification-snack-bar.component';
 import { SnackBarStatus } from 'app/notifications/snackbar-status-enum';
 import { BalanceConfirmationService } from 'app/services/balance-confirmation.service';
+import { AttachmentViewDialogComponent } from '../attachment-view-dialog/attachment-view-dialog.component';
 
 @Component({
   selector: 'app-report',
@@ -18,9 +19,10 @@ export class ReportComponent implements OnInit {
   balanceConfirmationDisplayedColumns: string[];
   @ViewChild(MatPaginator) balanceConfirmationPaginator: MatPaginator;
   @ViewChild(MatSort) balanceConfirmationSort: MatSort;
+  AllColumns=["PartnerID", "FiscalYear", "BalDate", "AcceptedOn", "RejectedOn", "Remarks","Attachments"]
   AcceptedColumns = ["PartnerID", "FiscalYear", "BalDate", "AcceptedOn"];
-  RejectedColumns = ["PartnerID", "FiscalYear", "BalDate", "RejectedOn", "Remarks"];
-  Columns = ["PartnerID", "FiscalYear", "BalDate"];
+  RejectedColumns = ["PartnerID", "FiscalYear", "BalDate", "RejectedOn", "Remarks","Attachments"];
+  NotRespodedColumns = ["PartnerID", "FiscalYear", "BalDate"];
   notificationSnackBarComponent: NotificationSnackBarComponent;
   isProgressBarVisibile: boolean;
   AllHeaders:BalanceConfirmationHeader[]=[];
@@ -31,6 +33,7 @@ export class ReportComponent implements OnInit {
   constructor(
     public snackBar: MatSnackBar,
     private _bcService: BalanceConfirmationService,
+    private dialog:MatDialog
   ) {
     this.isProgressBarVisibile = false;
     this.notificationSnackBarComponent = new NotificationSnackBarComponent(this.snackBar);
@@ -71,7 +74,7 @@ export class ReportComponent implements OnInit {
 
   LoadTable(tab: number) {
     if (tab == 1) {
-      this.balanceConfirmationDisplayedColumns = this.Columns;
+      this.balanceConfirmationDisplayedColumns = this.NotRespodedColumns;
       this.balanceConfirmationDataSource=new MatTableDataSource(this.AllHeaders);
     }
     else if (tab == 2) {
@@ -83,11 +86,21 @@ export class ReportComponent implements OnInit {
       this.balanceConfirmationDataSource=new MatTableDataSource(this.RejectedHeaders);
     }
     else {
-      this.balanceConfirmationDisplayedColumns = this.Columns;
+      this.balanceConfirmationDisplayedColumns = this.NotRespodedColumns;
       this.balanceConfirmationDataSource=new MatTableDataSource(this.NotRespondedHeaders);
     }
     this.balanceConfirmationDataSource.sort=this.balanceConfirmationSort;
     this.balanceConfirmationDataSource.paginator=this.balanceConfirmationPaginator;
+  }
+  openAttachmentViewDialog(bcHeader:BalanceConfirmationHeader): void {
+    const dialogConfig: MatDialogConfig = {
+      data: { header:bcHeader },
+      panelClass: "attachment-view-dialog",
+    };
+    const dialogRef = this.dialog.open(
+      AttachmentViewDialogComponent,
+      dialogConfig
+    );
   }
 
 }

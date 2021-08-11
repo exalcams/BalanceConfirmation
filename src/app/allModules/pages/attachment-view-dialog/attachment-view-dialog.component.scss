@@ -1,0 +1,50 @@
+@import "src/@fuse/scss/fuse";
+
+.attachment-view-dialog {
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+
+    @include media-breakpoint-up("sm") {
+        width: 450px;
+    }
+      .mat-dialog-container {
+        padding: 0;
+        border-radius: 4px;
+      }
+    
+      .dialog-content-wrapper {
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .toolbar{
+        background-color: #f4f4fb;
+        height: 56px;
+      }
+      .title{
+          font-size: 18px;
+          color: #2c2c2e;
+      }
+      .dialog-footer{
+        box-shadow: 0 2px 18px 0 rgba(74, 122, 255, 0.38);
+        background-color: #fdfdfd;
+        height: 56px;
+      }
+      .savebtn{
+        background-color: #039be5 !important;
+        color: #ffffff !important;
+        font-size: 12px;
+      }
+      #overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: -1;
+      }
+}

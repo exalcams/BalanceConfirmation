@@ -37,6 +37,7 @@ export class ToolbarComponent implements OnInit, OnDestroy, OnChanges {
     NotificationCount: number;
     AllNotificationByUserID: UserNotification[] = [];
     SetIntervalID: any;
+    CurrentUserRole:string;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -136,6 +137,7 @@ export class ToolbarComponent implements OnInit, OnDestroy, OnChanges {
         if (retrievedObject) {
             this.authenticationDetails = JSON.parse(retrievedObject) as AuthenticationDetails;
             this.CurrentLoggedInUser = this.authenticationDetails.DisplayName;
+            this.CurrentUserRole=this.authenticationDetails.UserRole;
             if (this.authenticationDetails.Profile && this.authenticationDetails.Profile !== 'Empty') {
                 this.CurrentLoggedInUserProfile = this.authenticationDetails.Profile;
             }

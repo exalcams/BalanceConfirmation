@@ -118,6 +118,23 @@
                 {{element.Remarks}}
               </td>
             </ng-container>
+
+            <ng-container matColumnDef="Attachments">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Attachements</th>
+              <td mat-cell *matCellDef="let element;index as i" style="cursor: pointer;text-align: center;"
+                  (click)="openAttachmentViewDialog(element)">
+                  <div fxLayout="row" fxLayoutAlign="center">
+                  <!-- <div style="margin-top: 3px; margin-left: 15px;">
+                      <span [matBadge]="element.Attachment.length" matBadgeSize="small" matBadgeOverlap="false"
+                          matBadgeColor="accent"></span>    
+                  </div> -->
+                  <!-- <img style="width: 20px;" src="assets/images/attachment.svg"> -->
+                  <div>
+                      <a class="pl-8">View</a>
+                  </div>
+              </div>
+              </td>
+          </ng-container>
   
             <tr mat-header-row *matHeaderRowDef="balanceConfirmationDisplayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: balanceConfirmationDisplayedColumns;">

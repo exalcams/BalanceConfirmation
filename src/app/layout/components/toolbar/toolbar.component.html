@@ -55,7 +55,7 @@
 
             <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
 
-                <button mat-menu-item (click)="ChangePasswordClick()">
+                <button mat-menu-item (click)="ChangePasswordClick()" *ngIf="CurrentUserRole=='Administrator'">
                     <mat-icon>account_circle</mat-icon>
                     <span>Change Password</span>
                 </button>

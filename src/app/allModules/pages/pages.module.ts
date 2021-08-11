@@ -56,6 +56,8 @@ import { OverviewComponent } from './overview/overview.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { RejectionDialogComponent } from './rejection-dialog/rejection-dialog.component';
 import { ReportComponent } from './report/report.component';
+import { AttachmentViewDialogComponent } from './attachment-view-dialog/attachment-view-dialog.component';
+import { AttachmentDialogComponent } from './attachment-dialog/attachment-dialog.component';
 
 const routes = [
     {
@@ -130,10 +132,12 @@ const routes = [
 
         FormsModule
     ],
-    declarations: [DashboardComponent, ConfirmationComponent, ReportComponent, RejectionDialogComponent, OverviewComponent],
+    declarations: [DashboardComponent, ConfirmationComponent, ReportComponent, RejectionDialogComponent, OverviewComponent,AttachmentDialogComponent,AttachmentViewDialogComponent],
     providers: [],
     entryComponents: [
-        RejectionDialogComponent
+        RejectionDialogComponent,
+        AttachmentDialogComponent,
+        AttachmentViewDialogComponent
     ]
 })
 export class PagesModule { }
