@@ -10,70 +10,30 @@
             </div>
         </div>
 
-        <div fxFlex fxLayout *ngIf="!isExpanded" @expandCollapse>
-            <div class="tile mx-20 p-12 cardValues" fxFlex="30" fxLayout="column">
-                <div fxLayoutAlign="center center">
-                    <span class="boldClass px-8 pb-4">Enabled Users</span>
-                    <!-- <span *ngIf="enabledCount?.TotalEnabledUsers">
-                        ({{enabledCount?.TotalEnabledUsers}})
-                    </span> -->
-                </div>
-                <span class="divider"></span>
-                <!-- <div class="flexcontainer">
-                    <span>Total : {{enabledCount?.TotalEnabledUsers}}</span>
-                </div> -->
-                <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-                    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-                        <div>
-                            <span>Vendor</span>
-                        </div>
-                        <div class="py-8">
-                            <span>{{enabledCount?.EnabledVendors}}</span>
-                        </div>
-                    </div>
-                    <span class="leftDivider"></span>
-                    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-                        <div>
-                            <span>Customer</span>
-                        </div>
-                        <div class="py-8">
-                            <span>{{enabledCount?.EnabledCustomers}}</span>
-                        </div>
-                    </div>
-                </div>
+        <div fxFlex class="mx-20" fxLayout fxLayoutAlign="space-between stretch" fxLayoutGap="1%" *ngIf="!isExpanded"
+            @expandCollapse>
+
+            <div fxFlex="14%" class="enable-card py-12">
+                <div class="enable-card-header"> {{enabledCount?.EnabledVendors}} </div>
+                <div class="enable-card-item">Enabled Vendors</div>
             </div>
-            <div class="tile mx-20 p-12 cardValues" fxFlex="30" fxLayout="column">
-                <div fxLayoutAlign="center center">
-                    <span class="boldClass px-8 pb-4">Disabled Users</span>
-                    <!-- <span *ngIf="disabledCount?.TotalDisabledUsers">
-                        ({{disabledCount?.TotalDisabledUsers}})
-                    </span> -->
-                </div>
-                <span class="divider"></span>
-                <!-- <div class="flexcontainer">
-                    <span>Total : {{disabledCount?.TotalDisabledUsers}}</span>
-                </div> -->
-                <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-                    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-                        <div>
-                            <span>Vendor</span>
-                        </div>
-                        <div class="py-8">
-                            <span>{{disabledCount?.DisabledVendors}}</span>
-                        </div>
-                    </div>
-                    <span class="leftDivider"></span>
-                    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-                        <div>
-                            <span>Customer</span>
-                        </div>
-                        <div class="py-8">
-                            <span>{{disabledCount?.DisabledCustomers}}</span>
-                        </div>
-                    </div>
-                </div>
+
+            <div fxFlex="14%" class="enable-card py-12">
+                <div class="enable-card-header"> {{enabledCount?.EnabledCustomers}} </div>
+                <div class="enable-card-item">Enabled Customers</div>
             </div>
-            <div class="ml-40 mr-20 pt-12" fxFlex="40">
+
+            <div fxFlex="14%" class="disable-card py-12">
+                <div class="disable-card-header"> {{disabledCount?.DisabledVendors}} </div>
+                <div class="disable-card-item">Disabled Vendors</div>
+            </div>
+
+            <div fxFlex="14%" class="disable-card py-12">
+                <div class="disable-card-header"> {{disabledCount?.DisabledCustomers}} </div>
+                <div class="disable-card-item">Disabled Customers</div>
+            </div>
+
+            <div class="pt-12" fxFlex="39%">
                 <form autocomplete="off" name="form" novalidate [formGroup]="searchFormGroup">
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <mat-form-field appearance="outline" fxFlex>
@@ -88,11 +48,11 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="row" fxLayoutAlign="start center" class="mb-12">
+                    <!-- <div fxLayout="row" fxLayoutAlign="start center" class="mb-12">
                         <div fxFlex class="hrLine mx-4"></div>
                         <div class="smallRound"></div>
                         <div fxFlex class="hrLine mx-4"></div>
-                    </div>
+                    </div> -->
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <mat-form-field appearance="outline" fxFlex>
                             <!-- <mat-icon class="mr-12" matPrefix>search</mat-icon> -->
@@ -107,9 +67,7 @@
 
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex align="end">
-                            <button mat-raised-button class="SaveBtn"
-                                [ngClass]="BGClassName?.layout?.navbar?.primaryBackground"
-                                (click)="searchButtonClicked()">Search</button>
+                            <button mat-raised-button class="SaveBtn" (click)="searchButtonClicked()">Search</button>
                         </div>
                     </div>
                 </form>
@@ -117,52 +75,55 @@
         </div>
 
         <div class="px-20 pb-20">
-            <div fxLayout="row" class="mt-20" fxLayoutAlign="start center">
-                <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-icon class="mr-12" matPrefix>search</mat-icon>
-                    <mat-label>Search</mat-label>
-                    <input [(ngModel)]="searchText" matInput (keyup)="applyFilter($event)">
-                </mat-form-field>
-                <div fxFlex fxLayoutAlign="end center">
-                    <button (click)="exportAsXLSX()" class="excelBtn mx-24" mat-stroked-button>
+            <div fxLayout="row" class="mt-16" fxLayoutAlign="start center">
+                <div fxFlex="40" class="mt-4 sea">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-icon class="mr-12" matPrefix>search</mat-icon>
+                        <mat-label>Search</mat-label>
+                        <input [(ngModel)]="searchText" matInput (keyup)="applyFilter($event)">
+                    </mat-form-field>
+                </div>
+                <div fxFlex fxLayout="row wrap" fxLayoutGap="1%" fxLayoutAlign="end center">
+                    <div *ngIf="!selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='false')">
+                        <button (click)="enableAllClicked()" class="SaveOuterBtn" mat-stroked-button>
+                            Enable All {{SelectedRole}}
+                        </button>
+                    </div>
+                    <div *ngIf="!selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
+                        <button (click)="sendMailToAllClicked()" class="SaveOuterBtn" mat-stroked-button>
+                            Send Mail To All {{SelectedRole}}
+                        </button>
+                    </div>
+                    <div *ngIf="!selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
+                        <button (click)="disbleAllClicked()" class="SaveOuterBtn" mat-stroked-button>
+                            Disable All {{SelectedRole}}
+                        </button>
+                    </div>
+                    <div *ngIf="selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='false')">
+                        <button (click)="enableSelectedClicked()" class="SaveOuterBtn" mat-stroked-button>
+                            Enable Selected {{SelectedRole}}
+                        </button>
+                    </div>
+                    <div *ngIf="selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
+                        <button (click)="sendMailToSelectedClicked()" class="SaveOuterBtn" mat-stroked-button>
+                            Send Mail To Selected {{SelectedRole}}
+                        </button>
+                    </div>
+                    <div *ngIf="selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
+                        <button (click)="disbleSelectedClicked()" class="SaveOuterBtn" mat-stroked-button>
+                            Disable Selected {{SelectedRole}}
+                        </button>
+                    </div>
+                    <button (click)="exportAsXLSX()" class="excelBtn" mat-stroked-button>
                         <img class="excelImg" src="assets/images/excel.png">
                     </button>
                     <img class="expandImg" src="assets/images/expand.png" (click)="expandClicked()">
                 </div>
             </div>
             <div fxLayout="row wrap" class="mt-4" fxLayoutGap="1%" fxLayoutAlign="end center">
-                <div *ngIf="!selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='false')">
-                    <button (click)="enableAllClicked()" class="SaveBtn" mat-stroked-button>
-                        Enable All {{SelectedRole}}
-                    </button>
-                </div>
-                <div *ngIf="!selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
-                    <button (click)="sendMailToAllClicked()" class="SaveBtn" mat-stroked-button>
-                        Send Mail To All {{SelectedRole}}
-                    </button>
-                </div>
-                <div *ngIf="!selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
-                    <button (click)="disbleAllClicked()" class="SaveBtn" mat-stroked-button>
-                        Disable All {{SelectedRole}}
-                    </button>
-                </div>
-                <div *ngIf="selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='false')">
-                    <button (click)="enableSelectedClicked()" class="SaveBtn" mat-stroked-button>
-                        Enable Selected {{SelectedRole}}
-                    </button>
-                </div>
-                <div *ngIf="selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
-                    <button (click)="sendMailToSelectedClicked()" class="SaveBtn" mat-stroked-button>
-                        Send Mail To Selected {{SelectedRole}}
-                    </button>
-                </div>
-                <div *ngIf="selection.hasValue() && (SelectedStatus==='All' || SelectedStatus==='true')">
-                    <button (click)="disbleSelectedClicked()" class="SaveBtn" mat-stroked-button>
-                        Disable Selected {{SelectedRole}}
-                    </button>
-                </div>
+
             </div>
-            <table class="table mt-12" mat-table [dataSource]="overviewDataSource" matSort>
+            <table class="table" mat-table [dataSource]="overviewDataSource" matSort>
 
                 <ng-container matColumnDef="Select">
                     <th mat-header-cell *matHeaderCellDef>
