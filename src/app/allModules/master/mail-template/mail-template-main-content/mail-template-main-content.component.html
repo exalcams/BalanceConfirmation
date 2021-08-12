@@ -4,11 +4,19 @@
     <div class="h2 mb-24">{{mailTemplate.TemplateID?'Update':'Create'}} Template</div>
     <div fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="1 0 auto">
         <mat-form-field class="pl-8" fxFlex="50">
-            <input matInput placeholder="Template Name" formControlName="Type">
+            <input matInput placeholder="Template Name" formControlName="Name">
             <mat-error
-                *ngIf="mailTemplateMainFormGroup.get('Type').touched && mailTemplateMainFormGroup.get('Type').hasError('required')">
+                *ngIf="mailTemplateMainFormGroup.get('Name').touched && mailTemplateMainFormGroup.get('Name').hasError('required')">
                 Template Name required</mat-error>
         </mat-form-field>
+        <mat-form-field class="pl-8" fxFlex="50">
+            <mat-select placeholder="Type" formControlName="Type">
+                <mat-option value="v">Vendor</mat-option>
+                <mat-option value="c">Customer</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="1 0 auto">
         <mat-form-field class="pl-8" fxFlex="50">
             <input matInput placeholder="Subject" formControlName="Subject">
             <mat-error

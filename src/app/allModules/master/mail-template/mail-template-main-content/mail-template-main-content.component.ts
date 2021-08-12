@@ -28,6 +28,7 @@ export class MailTemplateMainContentComponent implements OnInit, OnChanges {
   constructor(private _masterService: MasterService, private _formBuilder: FormBuilder, private _router: Router,
     public snackBar: MatSnackBar, private dialog: MatDialog) {
     this.mailTemplateMainFormGroup = this._formBuilder.group({
+      Name:['',Validators.required],
       Type: ['', Validators.required],
       Subject:['',Validators.required],
       Body:['']
@@ -77,6 +78,7 @@ export class MailTemplateMainContentComponent implements OnInit, OnChanges {
           result => {
             if (result) {
               this.ShowProgressBarEvent.emit('show');
+              this.mailTemplate.Name = this.mailTemplateMainFormGroup.get('Name').value;
               this.mailTemplate.Type = this.mailTemplateMainFormGroup.get('Type').value;
               this.mailTemplate.Subject = this.mailTemplateMainFormGroup.get('Subject').value;
               this.mailTemplate.Body = this.mailTemplateMainFormGroup.get('Body').value;
@@ -112,6 +114,7 @@ export class MailTemplateMainContentComponent implements OnInit, OnChanges {
             if (result) {
               this.ShowProgressBarEvent.emit('show');
               this.mailTemplate = new MailTemplate();
+              this.mailTemplate.Name = this.mailTemplateMainFormGroup.get('Name').value;
               this.mailTemplate.Type = this.mailTemplateMainFormGroup.get('Type').value;
               this.mailTemplate.Subject = this.mailTemplateMainFormGroup.get('Subject').value;
               this.mailTemplate.Body = this.mailTemplateMainFormGroup.get('Body').value;
@@ -156,6 +159,7 @@ export class MailTemplateMainContentComponent implements OnInit, OnChanges {
           result => {
             if (result) {
               this.ShowProgressBarEvent.emit('show');
+              this.mailTemplate.Name = this.mailTemplateMainFormGroup.get('Name').value;
               this.mailTemplate.Type = this.mailTemplateMainFormGroup.get('Type').value;
               this.mailTemplate.Subject = this.mailTemplateMainFormGroup.get('Subject').value;
               this.mailTemplate.Body = this.mailTemplateMainFormGroup.get('Body').value;
@@ -189,6 +193,7 @@ export class MailTemplateMainContentComponent implements OnInit, OnChanges {
     if (this.currentSelectedMailTemplate) {
       this.mailTemplate = new MailTemplate();
       this.mailTemplate.TemplateID = this.currentSelectedMailTemplate.TemplateID;
+      this.mailTemplate.Name = this.currentSelectedMailTemplate.Name;
       this.mailTemplate.Type = this.currentSelectedMailTemplate.Type;
       this.mailTemplate.Subject = this.currentSelectedMailTemplate.Subject;
       this.mailTemplate.Body = this.currentSelectedMailTemplate.Body;
@@ -197,6 +202,7 @@ export class MailTemplateMainContentComponent implements OnInit, OnChanges {
       this.mailTemplate.CreatedOn = this.currentSelectedMailTemplate.CreatedOn;
       this.mailTemplate.ModifiedBy = this.currentSelectedMailTemplate.ModifiedBy;
       this.mailTemplate.ModifiedOn = this.currentSelectedMailTemplate.ModifiedOn;
+      this.mailTemplateMainFormGroup.get('Name').patchValue(this.mailTemplate.Name);
       this.mailTemplateMainFormGroup.get('Type').patchValue(this.mailTemplate.Type);
       this.mailTemplateMainFormGroup.get('Subject').patchValue(this.mailTemplate.Subject);
       this.mailTemplateMainFormGroup.get('Body').patchValue(this.mailTemplate.Body);

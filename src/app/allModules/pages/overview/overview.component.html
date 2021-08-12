@@ -1,6 +1,6 @@
 <div id="overview" class="page-layout carded" fusePerfectScrollbar>
     <div class="center" fxLayout="column" fxLayoutGap="10px">
-        <div class="outer" fxLayout>
+        <!-- <div class="outer" fxLayout>
             <div class="bg"></div>
             <div>
                 <h3 style="margin: 0px;padding-left: 10px;"><b>Overview</b></h3>
@@ -8,27 +8,27 @@
             <div fxFlex align="end">
                 <span><img src="assets/images/logo.svg" style="height: 40px;padding: 4px 15px 2px 0px;"></span>
             </div>
-        </div>
+        </div> -->
 
-        <div fxFlex class="mx-20" fxLayout fxLayoutAlign="space-between stretch" fxLayoutGap="1%" *ngIf="!isExpanded"
+        <div fxFlex class="mx-20 mt-24" fxLayout fxLayoutAlign="space-between stretch" fxLayoutGap="1%" *ngIf="!isExpanded"
             @expandCollapse>
 
-            <div fxFlex="14%" class="enable-card py-12">
+            <div fxFlex="14%" class="enable-card py-12 px-16">
                 <div class="enable-card-header"> {{enabledCount?.EnabledVendors}} </div>
                 <div class="enable-card-item">Enabled Vendors</div>
             </div>
 
-            <div fxFlex="14%" class="enable-card py-12">
+            <div fxFlex="14%" class="enable-card py-12 px-16">
                 <div class="enable-card-header"> {{enabledCount?.EnabledCustomers}} </div>
                 <div class="enable-card-item">Enabled Customers</div>
             </div>
 
-            <div fxFlex="14%" class="disable-card py-12">
+            <div fxFlex="14%" class="disable-card py-12 px-16">
                 <div class="disable-card-header"> {{disabledCount?.DisabledVendors}} </div>
                 <div class="disable-card-item">Disabled Vendors</div>
             </div>
 
-            <div fxFlex="14%" class="disable-card py-12">
+            <div fxFlex="14%" class="disable-card py-12 px-16">
                 <div class="disable-card-header"> {{disabledCount?.DisabledCustomers}} </div>
                 <div class="disable-card-item">Disabled Customers</div>
             </div>
@@ -114,9 +114,9 @@
                             Disable Selected {{SelectedRole}}
                         </button>
                     </div>
-                    <button (click)="exportAsXLSX()" class="excelBtn" mat-stroked-button>
+                    <!-- <button (click)="exportAsXLSX()" class="excelBtn" mat-stroked-button>
                         <img class="excelImg" src="assets/images/excel.png">
-                    </button>
+                    </button> -->
                     <img class="expandImg" src="assets/images/expand.png" (click)="expandClicked()">
                 </div>
             </div>
