@@ -46,11 +46,12 @@ export class ReportComponent implements OnInit {
   GetReportTableData(){
     this.isProgressBarVisibile=true;
     this._bcService.GetAllBCheaders().subscribe((data)=>{
-      this.AllHeaders=<BalanceConfirmationHeader[]>data;
+      var headers=<BalanceConfirmationHeader[]>data;
+      this.AllHeaders=headers.filter(x=>x.Status!=null);
       this.LoadTable(1);
       this.AcceptedHeaders=this.AllHeaders.filter(x=>x.Status=="Accepted");
       this.RejectedHeaders=this.AllHeaders.filter(x=>x.Status=="Rejected");
-      this.NotRespondedHeaders=this.AllHeaders.filter(x=>x.Status!="Accepted" && x.Status!="Rejected");
+      this.NotRespondedHeaders=this.AllHeaders.filter(x=>x.Status=="NR");
       this.isProgressBarVisibile=false;
     },
     err=>{

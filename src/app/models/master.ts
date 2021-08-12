@@ -61,6 +61,7 @@ export class Role {
 }
 export class MailTemplate extends CommonClass {
     TemplateID: number;
+    Name:string;
     Type: string;
     Subject: string;
     Body: string;
