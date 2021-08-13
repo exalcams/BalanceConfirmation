@@ -529,6 +529,10 @@ export class OverviewComponent implements OnInit {
   }
   SendMailToAllCustomers(): void {
     this.IsProgressBarVisibile = true;
+    setTimeout(() => {
+      this.IsProgressBarVisibile = false;
+      this.notificationSnackBarComponent.openSnackBar(`Mail sending initiated`, SnackBarStatus.success);
+    }, 3000);
     this._masterService.SendMailToAllCustomers().subscribe(
       (data) => {
         this.IsProgressBarVisibile = false;
@@ -543,6 +547,10 @@ export class OverviewComponent implements OnInit {
   }
   SendMailToAllUsers(): void {
     this.IsProgressBarVisibile = true;
+    setTimeout(() => {
+      this.IsProgressBarVisibile = false;
+      this.notificationSnackBarComponent.openSnackBar(`Mail sending initiated`, SnackBarStatus.success);
+    }, 3000);
     this._masterService.SendMailToAllUsers().subscribe(
       (data) => {
         this.IsProgressBarVisibile = false;
@@ -557,6 +565,10 @@ export class OverviewComponent implements OnInit {
   }
   SendMailToSelectedUsers(): void {
     this.IsProgressBarVisibile = true;
+    setTimeout(() => {
+      this.IsProgressBarVisibile = false;
+      this.notificationSnackBarComponent.openSnackBar(`Mail sending initiated`, SnackBarStatus.success);
+    }, 3000);
     const Ids = this.selection.selected.map(x => x.UserID);
     this._masterService.SendMailToSelectedUsers(Ids).subscribe(
       (data) => {
