@@ -29,6 +29,7 @@ export class ReportComponent implements OnInit {
   AcceptedHeaders:BalanceConfirmationHeader[]=[];
   RejectedHeaders:BalanceConfirmationHeader[]=[];
   NotRespondedHeaders:BalanceConfirmationHeader[]=[];
+  searchText:string;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -102,6 +103,10 @@ export class ReportComponent implements OnInit {
       AttachmentViewDialogComponent,
       dialogConfig
     );
+  }
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.balanceConfirmationDataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

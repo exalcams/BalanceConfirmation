@@ -42,6 +42,7 @@ export class ConfirmationComponent implements OnInit {
   balanceConfirmationDataSource: MatTableDataSource<BalanceConfirmationItem>;
   balanceConfirmationDisplayedColumns = ['FiscalYear', 'DocNumber', 'DocDate', 'InvoiceNumber', 'InvoiceAmount', 'BillAmount', 'PaidAmont',
     'TDSAmount', 'TotalPaidAmount', 'DownPayment', 'NetDueAmount', 'Currency', 'BalDate'];
+  searchText:string;
   // SecretKey: string;
   // SecureStorage: SecureLS;
   constructor(
@@ -259,6 +260,11 @@ export class ConfirmationComponent implements OnInit {
     //   this.isProgressBarVisibile = false;
     //   this.notificationSnackBarComponent.openSnackBar(err instanceof Object ? 'Something went wrong' : err, SnackBarStatus.danger);
     // });
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.balanceConfirmationDataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
